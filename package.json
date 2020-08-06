@@ -1,0 +1,48 @@
+{
+  "name": "girl-code-it-backend",
+  "version": "1.0.0",
+  "description": "This is the backend service for the girl code it services ",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run build && mocha --exit ./dist/tests/|| true",
+    "test:utility": "npm run build && mocha --exit ./dist/tests/utility || true",
+    "build": "tsc",
+    "start": "node ./dist/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Girl-Code-It/Girl-Code-It-Website-Backend-.git"
+  },
+  "keywords": [
+    "Backend",
+    "NodeJS",
+    "TypeScript",
+    "Code",
+    "girl-code-it"
+  ],
+  "author": "girl-code-it",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Girl-Code-It/Girl-Code-It-Website-Backend-/issues"
+  },
+  "homepage": "https://github.com/Girl-Code-It/Girl-Code-It-Website-Backend-#readme",
+  "dependencies": {
+    "@types/node": "^14.0.27",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.28",
+    "morgan": "^1.10.0",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "@types/mocha": "^8.0.1",
+    "chai": "^4.2.0",
+    "coveralls": "^3.1.0",
+    "mocha": "^8.1.1",
+    "supertest": "^4.0.2",
+    "ts": "^0.2.2",
+    "typescript": "^3.9.7"
+  }
+}

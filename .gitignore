@@ -1,0 +1,12 @@
+#IDE Defaults
+.vscode
+.cph
+
+#Distribution files
+dist/
+
+#NodeModules
+node_modules
+
+#Environment Variables
+.env
