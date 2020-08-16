@@ -5,9 +5,17 @@ language: node_js
 node_js:
     - node
 
+services:
+    - mongodb
+
 install:
     - npm ci
+
 script:
+    - chmod +x create_test_env.sh
+    - ./create_test_env.sh
+    - chmod +r .env
     - npm run test
+
 notifications:
     email: false

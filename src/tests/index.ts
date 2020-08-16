@@ -15,4 +15,7 @@ describe('Main Test Controller', function(){
     describe('Utility Tests', function() {
         require('./utility')
     })
+    describe('Profile Test', function() {
+        require('./profile')
+    })
 });

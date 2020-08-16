@@ -1,3 +1,4 @@
+import { ProfileRoutes } from './routes/profileRoute';
 import { UtilityRoutes } from './routes/utilityRoute';
 import express = require('express');
 import path = require('path');
@@ -5,10 +6,10 @@ import bodyParser = require('body-parser');
 import cors = require('cors');
 import morgan = require('morgan');
 require('dotenv').config();
-
 export class App{
     public app;
     private utilityRoutes;
+    private profileRoutes;
     constructor() {
         this.app = express();
         this.routeSetup();
@@ -17,6 +18,8 @@ export class App{
     private routeSetup(): void{
         this.utilityRoutes = new UtilityRoutes();
         this.utilityRoutes.routes(this.app);
+        this.profileRoutes = new ProfileRoutes();
+        this.profileRoutes.routes(this.app);
     }
     private setup(): void{
         this.app.use(cors());
