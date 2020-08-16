@@ -13,6 +13,6 @@ describe('Utility Test Controller', function(){
         done();
     })
     describe('Hello World Test', function() {
-        require('./helloWorld.js')
+        require('./helloWorld.test.js')
     })
 });

@@ -4,7 +4,7 @@
   "description": "This is the backend service for the girl code it services ",
   "main": "index.js",
   "scripts": {
-    "test": "npm run build && mocha --exit ./dist/tests/|| true",
+    "test": "npm run build && mocha --timeout 10000 --exit ./dist/tests/|| true",
     "test:utility": "npm run build && mocha --exit ./dist/tests/utility || true",
     "build": "tsc",
     "start": "node ./dist/server.js"
@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/Girl-Code-It/Girl-Code-It-Website-Backend-#readme",
   "dependencies": {
+    "@hapi/joi": "^17.1.1",
     "@types/node": "^14.0.27",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
@@ -39,7 +40,6 @@
   "devDependencies": {
     "@types/mocha": "^8.0.1",
     "chai": "^4.2.0",
-    "coveralls": "^3.1.0",
     "mocha": "^8.1.1",
     "supertest": "^4.0.2",
     "ts": "^0.2.2",
