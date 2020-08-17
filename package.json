@@ -4,8 +4,9 @@
   "description": "This is the backend service for the girl code it services ",
   "main": "index.js",
   "scripts": {
-    "test": "npm run build && mocha --timeout 10000 --exit ./dist/tests/|| true",
-    "test:utility": "npm run build && mocha --exit ./dist/tests/utility || true",
+    "test": "npm run build && mocha --exit --recursive ./dist/tests/|| true",
+    "test:utility": "npm run build && mocha --exit --recursive ./dist/tests/utility || true",
+    "test:profile": "npm run build && mocha --exit --recursive ./dist/tests/profile || true",
     "build": "tsc",
     "start": "node ./dist/server.js"
   },
@@ -29,10 +30,12 @@
   "dependencies": {
     "@hapi/joi": "^17.1.1",
     "@types/node": "^14.0.27",
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.28",
     "morgan": "^1.10.0",
     "path": "^0.12.7"
