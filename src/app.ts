@@ -1,7 +1,7 @@
 import { ProfileRoutes } from './routes/profileRoute';
 import { UtilityRoutes } from './routes/utilityRoute';
 import express = require('express');
-import path = require('path');
+import mongoose = require('mongoose');
 import bodyParser = require('body-parser');
 import cors = require('cors');
 import morgan = require('morgan');
@@ -12,8 +12,8 @@ export class App{
     private profileRoutes;
     constructor() {
         this.app = express();
-        this.routeSetup();
         this.setup();
+        this.routeSetup();
     }
     private routeSetup(): void{
         this.utilityRoutes = new UtilityRoutes();
@@ -23,10 +23,18 @@ export class App{
     }
     private setup(): void{
         this.app.use(cors());
-        // this.databaseSetup();
+        this.app.use(bodyParser.urlencoded({ 
+            extended: false 
+        }))
+        this.app.use(bodyParser.json())
     }
-    public databaseSetup():any{
+    public async databaseSetup(): Promise<boolean>{
+        return await mongoose.connect(process.env.DBI_URL,{
+            useUnifiedTopology: true,
+            useNewUrlParser: true 
+        })
     }
-    public disconnectDatabase():any{
+    public async disconnectDatabase(): Promise<boolean>{
+        return await mongoose.connection.close()
     }
 }

@@ -3,6 +3,7 @@ import mongoose = require('mongoose');
 export interface UserInterface{
     userid: String,
     name : String,
+    password : String,
     college: String,
     courses: [mongoose.Types.ObjectId],
     verified: Boolean,
@@ -19,6 +20,10 @@ export const UserSchema = new mongoose.Schema({
         require: true
     },
     name: {
+        type: String,
+        require: true
+    },
+    password:{
         type: String,
         require: true
     },

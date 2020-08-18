@@ -7,5 +7,6 @@ export class ProfileRoutes{
     }
     public routes(app){
         app.route('/profile/create').post(this.profileController.createUser);
+        app.route('/profile/login').post(this.profileController.login);
     }
 }
