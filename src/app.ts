@@ -28,25 +28,13 @@ export class App{
         }))
         this.app.use(bodyParser.json())
     }
-    public databaseSetup():any{
-        return new Promise((resolve,reject)=>{
-            mongoose.connect(process.env.DBI_URL,{
-                useUnifiedTopology: true,
-                useNewUrlParser: true 
-            })
-            .then(()=>{
-                resolve();
-            })
-            .catch(err=>{
-                reject(err);
-            })
+    public async databaseSetup(): Promise<boolean>{
+        return await mongoose.connect(process.env.DBI_URL,{
+            useUnifiedTopology: true,
+            useNewUrlParser: true 
         })
     }
-    public disconnectDatabase():any{
-        return new Promise((resolve,reject)=>{
-            mongoose.connection.close()
-            .then(()=>resolve())
-            .catch(err=>reject(err));
-        })
+    public async disconnectDatabase(): Promise<boolean>{
+        return await mongoose.connection.close()
     }
 }

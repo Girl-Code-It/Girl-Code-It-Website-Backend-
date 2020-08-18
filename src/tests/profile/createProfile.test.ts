@@ -7,8 +7,10 @@ import {App} from '../../app';
 let _app;
 describe('Profile Create',()=>{
     before((done)=>{
-        _app = new App();
-        _app.databaseSetup()
+        (async ()=>{
+            _app = new App();
+            await _app.databaseSetup()
+        })()
         .then(()=>{
             done();
         })        
@@ -18,14 +20,14 @@ describe('Profile Create',()=>{
         })
     })
     after((done)=>{
-        _app.disconnectDatabase()
-        .then(async ()=>{
-            const connection = mongoose.createConnection(process.env.DBI_URL,{
+        (async()=>{
+            await _app.disconnectDatabase()
+            const connection = await mongoose.createConnection(process.env.DBI_URL,{
                 useNewUrlParser: true,
                 useUnifiedTopology: true
             });
             await connection.dropDatabase();
-        })
+        })()
         .then(()=>done())
         .catch(err=>done(err));
     })

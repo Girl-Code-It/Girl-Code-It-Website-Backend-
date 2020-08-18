@@ -3,7 +3,7 @@ import Joi = require('@hapi/joi');
 import bcrypt = require('bcrypt');
 import jwt = require('jsonwebtoken');
 export class ProfileController{
-    public createUser = (request,response)=>{
+    public createUser (request,response): any{
         const requestSchema = Joi.object({
             userid: Joi.string().required(),
             name: Joi.string().required(),
@@ -12,13 +12,10 @@ export class ProfileController{
             phone: Joi.string(), 
             password: Joi.string().required()
         });
-        new Promise(async (resolve,reject)=>{
+        (async()=>{
             const {error} = await requestSchema.validate(request.body)
-            if(error)reject(error);
-            else resolve();
-        })
-        .then(()=>{
-            return User.find({
+            if(error)throw error;
+            const result = await User.find({
                 $or: [
                     {
                         userid: request.userid
@@ -31,8 +28,6 @@ export class ProfileController{
                     },
                 ]
             })
-        })
-        .then(async (result) => {
             if(result.length !== 0){
                 throw new Error("User Already Exists");
             }
@@ -40,8 +35,8 @@ export class ProfileController{
             const hash = await bcrypt.hash(request.body.password, salt);
             request.body.password = hash;
             const newUser = new User(request.body);
-            return newUser.save();
-        })
+            return await newUser.save();
+        })()
         .then(createdId => {
             response.setHeader('content-type', 'application/json');
             return response.status(200).send({
@@ -65,18 +60,13 @@ export class ProfileController{
             userid: Joi.string().required(),
             password: Joi.string().required()
         });
-        new Promise(async (resolve,reject)=>{
+        (async()=>{
             const {error} = await requestSchema.validate(request.body)
-            if(error)reject(error);
-            else resolve();
-        })
-        .then(()=>{
-            return User.find({
+            if(error)throw error;
+            const user = await User.find({
                 userid: request.body.userid
             })
             .populate()
-        })
-        .then(async (user)=>{
             if(user.length == 0){
                 throw new Error("User Does Not Exists");
             }
@@ -90,7 +80,8 @@ export class ProfileController{
             }else{
                 throw new Error("Password Incorrect");
             }           
-        })
+
+        })()
         .then(token=>{
             response.status(200).send({
                 success: true,

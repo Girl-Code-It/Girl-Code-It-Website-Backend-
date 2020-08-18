@@ -16,12 +16,12 @@ describe('Login',()=>{
     }
     before((done)=>{
         _app = new App();
-        _app.databaseSetup()
-        .then(()=>{
-            return request(_app.app)
+        (async()=>{
+            await _app.databaseSetup()
+            return await request(_app.app)
                     .post('/profile/create')
                     .send(demoProfile)
-        })  
+        })()
         .then(({body})=>{
             assert.exists(body);
             assert.exists(body.success);
@@ -34,14 +34,15 @@ describe('Login',()=>{
         })
     })
     after((done)=>{
-        _app.disconnectDatabase()
-        .then(async ()=>{
-            const connection = mongoose.createConnection(process.env.DBI_URL,{
+        (async()=>{
+            await _app.disconnectDatabase()
+            const connection = await mongoose.createConnection(process.env.DBI_URL,{
                 useNewUrlParser: true,
                 useUnifiedTopology: true
             });
             await connection.dropDatabase();
-        })
+
+        })()
         .then(()=>done())
         .catch(err=>done(err));
     })
